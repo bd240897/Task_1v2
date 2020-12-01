@@ -15,6 +15,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -36,7 +37,7 @@ public class test_basket {
 //        FirefoxOptions options = new FirefoxOptions();
 //        options.setBinary(new FirefoxBinary(new File("c:\\Program Files\\Firefox Nightly\\firefox.exe")));
 //        driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 
 //        FirefoxBinary bin = new FirefoxBinary(new File("c:\\Program Files\\Firefox Nightly\\firefox.exe"));
@@ -56,6 +57,7 @@ public class test_basket {
 //        WebElement add_to_cart;
 //        WebElement yellow_duck;
 //        Select select;
+
 
         for (int i = 0; i <=2; i++){
 
@@ -97,24 +99,37 @@ public class test_basket {
             //System.out.println(i);
         }
 
-
-
         // передйем в корзину
         WebElement check_out = driver.findElement(By.cssSelector("div#cart-wrapper a.link"));
         String href = check_out.getAttribute("href");
         driver.navigate().to(href);
 
 
+        // длина карусели для удаления
+        List<WebElement> shortcuts = driver.findElements(By.cssSelector("ul.shortcuts li a"));
+
         // пробежимя по товарам и удалим их
-        for (int i = 0; i <=2; i++) {
+        for (int i = 0; i < shortcuts.size(); i++) {
+            // находим таблицу товаров
+            WebElement table = wait.until(presenceOfElementLocated(By.cssSelector("table.dataTable.rounded-corners")));
+
+
+            List<WebElement> shortcuts_current = driver.findElements(By.cssSelector("li.shortcut"));
+            // кликнем на маленькую иконку корусели
+            if (shortcuts_current.size() > 0) {
+                shortcuts_current.get(0).click();
+            }
+
             // нажмем на кнопку удалить
             WebElement remove = driver.findElement(By.cssSelector("button[name=remove_cart_item]"));
             remove.click();
 
             // дождемся удаления
-            WebElement table = driver.findElement(By.cssSelector("table.dataTable.rounded-corners"));
             wait.until(stalenessOf(table));
         }
+
+        // передйем на главную страницу
+        driver.get("https://litecart.stqa.ru/en/");
     }
 
 
