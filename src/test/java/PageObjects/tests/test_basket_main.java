@@ -1,4 +1,4 @@
-package PageObjects;
+package PageObjects.tests;
 
 import org.junit.Test;
 
