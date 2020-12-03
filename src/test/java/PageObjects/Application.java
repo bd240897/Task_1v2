@@ -32,6 +32,7 @@ public class Application {
     private WebDriver driver;
     private Page_main page_main;
     private Page_basket page_basket;
+    private Page_product page_product;
 
     public Application() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -42,7 +43,8 @@ public class Application {
         wait  = new WebDriverWait(driver, 30);
 
         page_main = new Page_main(driver);
-        page_basket = new Page_basket((driver));
+        page_basket = new Page_basket(driver);
+        page_product = new Page_product(driver);
     }
 
     public void quit() {
@@ -50,8 +52,8 @@ public class Application {
         driver = null;
     }
 
-    public void add_to_basket() {
-        for (int i = 0; i <= 5; i++) {
+    public void add_to_basket(int count_of_product) {
+        for (int i = 0; i <= count_of_product; i++) {
 
             // передйем на главную страницу
             page_main.open_main_page();
@@ -63,7 +65,7 @@ public class Application {
             page_main.open_first_product();
 
             // кликнем по первому продукту
-            page_main.clik_on_first_product();
+            page_product.clik_on_first_product();
 
             // дождемся обновление счетчика
             page_main.waiting_for_update_counter(counter, i);
@@ -80,10 +82,10 @@ public class Application {
 
     }
 
-        public void go_to_main_page()
-        {
-            // передйем на главную страницу
-            driver.get("https://litecart.stqa.ru/en/");
-        }
+    public void go_to_main_page()
+    {
+        // передйем на главную страницу
+        page_main.open_main_page();
+    }
 }
 

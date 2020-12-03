@@ -15,6 +15,7 @@ public class Page_basket extends page
         super(driver);
     }
 
+    // открыть корзину
     public void open_basket_page()
     {
         driver.navigate().to("https://litecart.stqa.ru/en/");
@@ -23,6 +24,7 @@ public class Page_basket extends page
         driver.navigate().to(href);
     }
 
+    // удалить все элементы из корзины
     public void delet_all_product(){
         // длина карусели для удаления
         List<WebElement> shortcuts = driver.findElements(By.cssSelector("ul.shortcuts li a"));
