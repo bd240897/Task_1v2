@@ -17,7 +17,7 @@ public class Page_main extends page
     // конструкторв
     public Page_main(WebDriver driver) {
         super(driver);
-//        PageFactory.initElements(driver, this);
+        PageFactory.initElements(driver, this);
     }
 
     // открыть главную страницы
@@ -28,13 +28,8 @@ public class Page_main extends page
         return driver.findElement(By.cssSelector("span.quantity"));
     }
 
-
-//    @FindBy(css = "div#box-most-popular ul.listing-wrapper.products li:nth-child(1)")
-//    private WebElement first_product;
-
     // открыть первы продукт
     public void open_first_product() {
-//        first_product.click();
         driver.findElement(By.cssSelector("div#box-most-popular ul.listing-wrapper.products li:nth-child(1)")).click();
     }
 
